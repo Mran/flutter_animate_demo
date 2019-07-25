@@ -43,8 +43,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  int switchSize = 0;
   bool status = true;
   double _height = 100.0;
   double _width = 100.0;
@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage>
 
   void _animating() {
     setState(() {
+      switchSize++;
+
       if (status) {
         _height = 100.0;
         _width = 100.0;
@@ -95,26 +97,24 @@ class _MyHomePageState extends State<MyHomePage>
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-              onTap: _animating,
-              child: Center(
-                child: Container(
-                  color: Colors.deepPurpleAccent,
-                  child: AnimatedPadding(
-                    child: Text(
-                      "padding动画演示",
-                      style: TextStyle(fontSize: 40.0),
-                    ),
-                    duration: Duration(milliseconds: 500),
-                    padding: EdgeInsets.all(status ? 50 : 0.0),
+        child: GestureDetector(
+          onTap: _animating,
+          child: AnimatedSwitcher(
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(child: child, scale: animation);
+            },
+            child: status
+                ? Text(
+                    "AnimatedSwitcher动画演示${switchSize}",
+                    style: TextStyle(fontSize: 40.0),
+                  )
+                : Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.deepOrange,
                   ),
-                ),
-              ),
-            ),
-          ],
+            duration: Duration(milliseconds: 500),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
