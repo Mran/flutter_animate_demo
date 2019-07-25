@@ -101,32 +101,25 @@ class _MyHomePageState extends State<MyHomePage>
             GestureDetector(
               onTap: _animating,
               child: Center(
-                child: AnimatedContainer(
-                  alignment: _alignment,
-                  height: 150,
-                  width: 150,
-//                  color: _color,
-                  transform: _matrix4,
-                  foregroundDecoration: BoxDecoration(
-                      color: _color,
-                      border: Border.all(
-                          color: status ? Colors.cyanAccent : Colors.black,
-                          width: status ? 20 : 10)),
-                  decoration: BoxDecoration(
-                      color: _color,
-                      border: Border.all(
-                          color: status ? Colors.cyanAccent : Colors.black,
-                          width: status ? 20 : 10)),
-                  margin: EdgeInsets.all(_marginValue),
-                  padding: EdgeInsets.all(_padingValue),
-                  duration: Duration(milliseconds: 500),
-                  child: Center(
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.deepOrange,
+                child: AnimatedCrossFade(
+                  firstChild: Container(
+                    width: 200,
+                    height: 200,
+                    child: Text(
+                      "第一个子widget",
+                      style: TextStyle(
+                          backgroundColor: Colors.deepOrange, fontSize: 30),
                     ),
                   ),
+                  secondChild: Text(
+                    "第二个子widget",
+                    style: TextStyle(
+                        backgroundColor: Colors.blueAccent, fontSize: 30),
+                  ),
+                  crossFadeState: status
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: Duration(milliseconds: 500),
                 ),
               ),
             ),
