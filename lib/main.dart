@@ -99,21 +99,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: Center(
         child: GestureDetector(
           onTap: _animating,
-          child: AnimatedSwitcher(
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(child: child, scale: animation);
-            },
-            child: status
-                ? Text(
-                    "AnimatedSwitcher动画演示${switchSize}",
-                    style: TextStyle(fontSize: 40.0),
-                  )
-                : Container(
-                    width: 50,
-                    height: 50,
-                    color: Colors.deepOrange,
+          child: Stack(
+            children: <Widget>[
+              AnimatedPositioned(
+                top: status ? 50 : 100,
+                height: status ? 50 : 100,
+                left: status ? 50 : 100,
+                child: Container(
+                  color: Colors.deepPurpleAccent,
+                  child: Text(
+                    "AnimatedPositioned动画演示${switchSize}",
+                    style: TextStyle(fontSize: 30.0),
                   ),
-            duration: Duration(milliseconds: 500),
+                ),
+                duration: Duration(milliseconds: 500),
+              ),
+            ],
           ),
         ),
       ),
