@@ -101,26 +101,18 @@ class _MyHomePageState extends State<MyHomePage>
             GestureDetector(
               onTap: _animating,
               child: Center(
-                child: AnimatedCrossFade(
-                  firstChild: Container(
-                    width: 200,
-                    height: 200,
-                    child: Text(
-                      "第一个子widget",
-                      style: TextStyle(
-                          backgroundColor: Colors.deepOrange, fontSize: 30),
+                child: AnimatedOpacity(
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.deepOrange,
+                      child: Text(
+                        "透明度动画演示",
+                        style: TextStyle(fontSize: 40.0),
+                      ),
                     ),
-                  ),
-                  secondChild: Text(
-                    "第二个子widget",
-                    style: TextStyle(
-                        backgroundColor: Colors.blueAccent, fontSize: 30),
-                  ),
-                  crossFadeState: status
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: Duration(milliseconds: 500),
-                ),
+                    opacity: status ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 500)),
               ),
             ),
           ],
