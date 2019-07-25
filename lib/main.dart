@@ -53,10 +53,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Alignment _alignment = Alignment.center;
   Matrix4 _matrix4 = Matrix4.translationValues(0, 0, 0);
   Color _color = Colors.amber;
+  AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
   }
 
   void _animating() {
@@ -71,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         _marginValue = 0.0;
         _alignment = Alignment.center;
         _matrix4 = Matrix4.translationValues(0, 0, 0);
+        _controller.forward();
       } else {
         _height = 200.0;
         _width = 200.0;
@@ -78,7 +82,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         _marginValue = 30.0;
         _color = Colors.blue;
         _alignment = Alignment.bottomRight;
-        _matrix4 = Matrix4.translationValues(20, 50, 0);
+        _matrix4 = Matrix4.translationValues(20, 100, 0);
+        _controller.reverse();
       }
       status = !status;
     });
@@ -99,20 +104,77 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: Center(
         child: GestureDetector(
           onTap: _animating,
-          child: Stack(
+          child: Wrap(
             children: <Widget>[
-              AnimatedPositioned(
-                top: status ? 50 : 100,
-                height: status ? 50 : 100,
-                left: status ? 50 : 100,
-                child: Container(
-                  color: Colors.deepPurpleAccent,
-                  child: Text(
-                    "AnimatedPositioned动画演示${switchSize}",
-                    style: TextStyle(fontSize: 30.0),
-                  ),
-                ),
-                duration: Duration(milliseconds: 500),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.arrow_menu,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.menu_arrow,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.close_menu,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.menu_close,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.home_menu,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.menu_home,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.list_view,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.view_list,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.ellipsis_search,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.search_ellipsis,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.add_event,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.event_add,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.pause_play,
+                progress: _controller,
+              ),
+              AnimatedIcon(
+                size: 100,
+                icon: AnimatedIcons.play_pause,
+                progress: _controller,
               ),
             ],
           ),
