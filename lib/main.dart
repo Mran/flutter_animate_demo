@@ -101,18 +101,17 @@ class _MyHomePageState extends State<MyHomePage>
             GestureDetector(
               onTap: _animating,
               child: Center(
-                child: AnimatedOpacity(
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      color: Colors.deepOrange,
-                      child: Text(
-                        "透明度动画演示",
-                        style: TextStyle(fontSize: 40.0),
-                      ),
+                child: Container(
+                  color: Colors.deepPurpleAccent,
+                  child: AnimatedPadding(
+                    child: Text(
+                      "padding动画演示",
+                      style: TextStyle(fontSize: 40.0),
                     ),
-                    opacity: status ? 1.0 : 0.0,
-                    duration: Duration(milliseconds: 500)),
+                    duration: Duration(milliseconds: 500),
+                    padding: EdgeInsets.all(status ? 50 : 0.0),
+                  ),
+                ),
               ),
             ),
           ],
